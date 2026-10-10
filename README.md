@@ -1,58 +1,46 @@
-# Case Study: Nuclear Equipment Health Monitoring Platform
+# Nuclear Equipment Health Monitoring
 
-## Context
+## The Business Problem
 
-Nuclear power plants operate under strict regulatory requirements where unplanned equipment failures are extremely costly, both in direct repair costs and in lost generation (a forced outage day can cost $3M+). Equipment health monitoring existed but was largely manual. Operators relied on periodic inspections, threshold alarms, and institutional knowledge to detect degradation.
+Nuclear power plants face $3M+/day forced outage costs. Equipment health monitoring was manual: operators relied on periodic inspections, threshold alarms, and institutional knowledge. Degradation between inspection intervals went undetected. Work order creation was manual, creating backlogs and duplicate effort. The organization needed to scale from monitoring a handful of systems to plant-wide coverage.
+
+**The strategic question:** How do you build trust in AI in a regulated, zero-failure-tolerance environment?
 
 ## My Role
 
-Senior Product Manager: responsible for defining the product vision, managing the delivery roadmap, and coordinating across nuclear engineering, IT, and third-party development teams.
+Senior Product Manager. Owned product vision, delivery roadmap, and coordination across nuclear engineering, IT, and third-party development teams.
 
-## Problem Framing
+## The Key Decisions
 
-**Operational challenges:**
-- Health monitoring was manual or alarm-based. Degradation between inspection intervals went undetected
-- Work order creation required manual data entry, creating duplicate efforts and backlog accumulation
-- No systematic way to connect equipment condition data to maintenance scheduling decisions
-- Scaling from a handful of monitored systems to plant-wide coverage required a platform, not point solutions
+### 1. Physics + statistical hybrid (not black-box ML)
 
-**Product opportunity:** Deliver a system that continuously monitors equipment health, detects anomalies early enough to schedule preventive maintenance, and reduces the manual overhead of work order management.
+Nuclear regulatory environments require explainability. I chose a hybrid approach: first-principles physics models provide baselines that operators and regulators understand; statistical methods catch subtle deviations the physics models miss. The combination provides both trust and sensitivity. A pure ML approach would have been rejected on day one.
 
-## Product Strategy
+### 2. In-house platform over vendor solution
 
-I structured the roadmap around progressive capability expansion:
+Vendor solutions covered generic monitoring but couldn't integrate with the plant's specific work management systems or regulatory workflows. I made the platform bet: invest in a configurable in-house platform that enables custom integration. Result: 80% cost reduction ($1M O&M savings) compared to bespoke vendor engagements per system.
 
-1. **Foundation**: Integration with plant data historians, baseline physics models for initial equipment set
-2. **Anomaly detection**: Layer data-driven anomaly detection on top of physics-based baselines to catch deviations that rule-based alarms miss
-3. **Workflow automation**: Auto-generate work orders and condition reports from detected anomalies, reducing manual entry and backlog
-4. **Fleet expansion**: Extend from pilot systems to 30+ monitored systems across multiple generating units
+### 3. Start with highest-consequence systems
 
-## Key Decisions
+Conventional wisdom says pilot on the easiest systems first. I chose the highest-consequence systems (where failure causes the longest outages). This front-loaded business value and proved the concept on the systems that mattered most to plant leadership. If it works on the hardest case, everything else is easier to fund.
 
-### Physics-based + data-driven hybrid
-- **Decision:** Combine first-principles physics models with statistical anomaly detection rather than purely data-driven ML
-- **Rationale:** Nuclear regulatory environments require explainability. A physics model provides a baseline that operators and regulators understand. Statistical methods catch subtle deviations the physics model doesn't predict. The combination provides both trust and sensitivity.
+### 4. Phased trust-building
 
-### In-house platform vs. vendor solution
-- **Decision:** Build on a configurable platform with in-house customization rather than a pure off-the-shelf vendor product
-- **Rationale:** Vendor solutions covered generic monitoring but didn't integrate with the plant's specific work management systems or regulatory workflows. A platform approach allowed custom integration while reducing third-party costs by 80%.
-
-### Progressive rollout by system criticality
-- **Decision:** Start with the highest-consequence systems (where a failure would cause the longest outage) rather than the easiest to instrument
-- **Rationale:** This front-loaded the highest business value and proved the concept on the systems that mattered most to plant leadership.
+I structured the rollout in four phases: display data accurately (prove you can read), surface anomalies (prove you can detect), recommend actions (prove you can think), automate low-risk decisions (prove you can act). Each phase had explicit success criteria before advancing. This earned operator trust incrementally rather than demanding it upfront.
 
 ## Results
 
-- Reduced third-party costs by 80% ($1M O&M savings) through in-house platform development
-- Decreased Work Order backlog by 10% via automation of previously manual entry processes
-- Established architecture supporting expansion from 6 to 30+ monitored systems
-- Enabled proactive condition-based maintenance, reducing forced outage risk
-- Delivered Go/No-Go milestone for initial release
+| Metric | Outcome |
+|--------|---------|
+| **Cost reduction** | 80% reduction in third-party monitoring costs ($1M O&M savings) |
+| **Backlog** | 10% decrease in work order backlog through automation |
+| **Scale** | Architecture supports expansion from 6 to 30+ monitored systems |
+| **Outage prevention** | Proactive condition-based maintenance reducing forced outage risk |
+| **Governance** | Go/No-Go milestone delivered for initial production release |
 
-## Lessons Learned
+## What This Demonstrates
 
-1. **Regulatory trust is a product requirement**: In nuclear, a monitoring system that operators don't trust is worse than useless (they'll ignore it and rely on manual checks). Building trust required explainable models, gradual rollout, and early operator involvement in validation.
-
-2. **Work order automation is higher-value than detection**: The monitoring itself was important, but the real time savings came from automating the downstream workflow (work order creation, scheduling integration). Detection without action is just more noise.
-
-3. **Third-party cost reduction requires a platform bet**: The 80% cost reduction only materialized because we invested in a configurable platform rather than paying for bespoke vendor engagements per system. This was a deliberate product strategy, not just a cost-cutting exercise.
+- **Trust engineering** in regulated environments (phased rollout with explicit gates)
+- **Build vs. buy judgment** (platform bet that delivered 80% cost reduction)
+- **Stakeholder management** in safety-critical domains (operator trust as a product requirement)
+- **Vendor-to-platform migration** (replacing point solutions with scalable architecture)
