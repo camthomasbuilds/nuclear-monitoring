@@ -28,6 +28,10 @@ Conventional wisdom says pilot on the easiest systems first. I chose the highest
 
 I structured the rollout in four phases: display data accurately (prove you can read), surface anomalies (prove you can detect), recommend actions (prove you can think), automate low-risk decisions (prove you can act). Each phase had explicit success criteria before advancing. This earned operator trust incrementally rather than demanding it upfront.
 
+### 5. Change management as a product discipline
+
+This wasn't a technology deployment. It was an organizational transformation. Nuclear plant operators had decades of institutional knowledge and established manual workflows. Replacing that with an automated monitoring platform required deliberate change management: early operator involvement in system validation, co-designing alert workflows with the people who would use them, transitioning ownership from a vendor-managed model to in-house capability, and redefining roles from reactive responders to proactive monitors. The 80% cost reduction only materialized because the team adopted the platform as their own, not because we installed software.
+
 ## Results
 
 | Metric | Outcome |
@@ -41,6 +45,7 @@ I structured the rollout in four phases: display data accurately (prove you can 
 ## What This Demonstrates
 
 - **Trust engineering** in regulated environments (phased rollout with explicit gates)
+- **Change management** (transforming decades of manual workflows into platform-driven operations)
 - **Build vs. buy judgment** (platform bet that delivered 80% cost reduction)
 - **Stakeholder management** in safety-critical domains (operator trust as a product requirement)
 - **Vendor-to-platform migration** (replacing point solutions with scalable architecture)
